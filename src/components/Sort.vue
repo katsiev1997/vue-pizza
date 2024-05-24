@@ -1,13 +1,55 @@
-<script setup></script>
+<script setup>
+import { ref } from "vue";
+const sort = [
+  {
+    label: "популярности",
+    value: "rating",
+  },
+  {
+    label: "цене",
+    value: "price",
+  },
+  {
+    label: "алфавиту",
+    value: "title",
+  },
+];
+const open = ref(true);
+const setSort = ref("rating");
+</script>
 
 <template>
-  <div class="relative flex flex-wrap gap-2 w-[225px] ml-2">
-    <img src="/arrow_up.svg" alt="arrow_up.svg" />
+  <div
+    @click="() => (open = !open)"
+    class="relative flex flex-wrap gap-2 w-[225px] ml-2 cursor-pointer"
+  >
+    <img
+      src="/arrow_up.svg"
+      :class="{
+        'rotate-180 transition': !open,
+      }"
+      alt="arrow_up.svg"
+    />
     <span class="font-bold text-sm">Сортировка по:</span>
-    <span
-      class="text-sm text-orange-500 underline underline-offset-4 cursor-pointer"
-    >
+    <span class="text-sm text-orange-500 underline underline-offset-4">
       популярности
     </span>
+    <div
+      :class="{
+        'absolute top-16 right-4 transition z-10 bg-white w-36 h-32 border rounded-xl shadow flex flex-col justify-around': true,
+        hidden: open,
+      }"
+    >
+      <div
+        :class="{
+          'cursor-pointer w-full hover:bg-gray-100 pl-5 h-full pt-2': true,
+          'text-orange-500': item.value === setSort,
+        }"
+        v-for="item in sort"
+        @click="() => (setSort = item.value)"
+      >
+        {{ item.label }}
+      </div>
+    </div>
   </div>
 </template>
