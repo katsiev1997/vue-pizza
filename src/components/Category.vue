@@ -9,6 +9,12 @@ const categories = [
   "Острые",
   "Закрытые",
 ];
+
+const setCategory = ref("Все");
+
+const onClickCategory = (category) => {
+  setCategory.value = category;
+};
 </script>
 
 <template>
@@ -16,7 +22,12 @@ const categories = [
     <div
       v-for="category in categories"
       :key="category"
-      class="rounded-full bg-gray-100 hover:bg-gray-200 flex justify-center items-center px-4 py-2 cursor-pointer font-semibold"
+      @click="onClickCategory(category)"
+      :class="{
+        'rounded-full bg-gray-100 flex justify-center items-center px-4 py-2 cursor-pointer font-semibold': true,
+        'bg-gray-900 text-white': category === setCategory,
+        'hover:bg-gray-200': category !== setCategory,
+      }"
     >
       {{ category }}
     </div>

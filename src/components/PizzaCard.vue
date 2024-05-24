@@ -5,11 +5,11 @@
       <h4 class="font-semibold text-2xl">Чизбургер-пицца</h4>
       <div class="bg-gray-200 w-full rounded-lg text-center flex flex-col gap-2 p-2">
         <div class="grid grid-cols-2 w-full">
-          <div class="bg-white rounded p-1">тонкое</div>
+          <div class="bg-white rounded p-1 cursor-pointer">тонкое</div>
           <div>традиционное</div>
         </div>
         <div class="grid grid-cols-3 w-full text-center">
-          <div class="bg-white rounded p-1">26 см.</div>
+          <div class="bg-white rounded p-1 cursor-pointer">26 см.</div>
           <div>30 см.</div>
           <div>40 см.</div>
         </div>
@@ -17,7 +17,7 @@
       <div class="w-full flex justify-between items-center">
         <h3 class="text-xl font-bold">от 395 ₽</h3>
         <div
-          class="bg-white rounded-full border border-orange-500 flex gap-2 px-3 font-bold items-center h-12 text-orange-500"
+          class="bg-white hover:bg-gray-50 cursor-pointer rounded-full border border-orange-500 flex gap-2 px-3 font-bold items-center h-12 text-orange-500"
         >
           <span class="text-lg">+</span>
           <span class="text-lg">Добавить</span>
