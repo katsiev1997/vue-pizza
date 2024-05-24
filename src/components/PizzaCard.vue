@@ -38,7 +38,7 @@ console.log(setSize);
       <h4 class="font-semibold text-2xl">{{ title }}</h4>
       <div class="bg-gray-200 w-full rounded-lg text-center flex flex-col gap-2 p-2">
         <div class="flex w-full">
-          <div
+          <button
             v-for="item in types"
             @click="() => setType = item"
             :class="{
@@ -47,10 +47,10 @@ console.log(setSize);
             }"
           >
             {{ typeNames[item] }}
-          </div>
+          </button>
         </div>
         <div class="flex text-center">
-          <div
+          <button
             v-for="size in sizes"
             @click="() => setSize = size"
             :class="{
@@ -59,19 +59,19 @@ console.log(setSize);
             }"
           >
             {{ size }} см.
-          </div>
+          </button>
         </div>
       </div>
       <div class="flex justify-between items-center w-full">
         <h3 class="text-xl font-bold">от {{ price }} ₽</h3>
-        <div
+        <button
           @click="() => count++"
           class="bg-white hover:bg-gray-50 cursor-pointer rounded-full border border-orange-500 flex gap-2 px-2 font-bold items-center h-12 text-orange-500"
         >
           <span class="text-2xl">+</span>
           <span class="text-lg">Добавить</span>
           <div class="bg-orange-500 rounded-full w-6 text-center text-white">{{ count }}</div>
-        </div>
+        </button>
       </div>
     </div>
   </div>
