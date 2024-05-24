@@ -1,27 +1,76 @@
+<script setup>
+import { ref } from "vue";
+const { pizza } = defineProps({
+  pizza: {
+    type: Object,
+    required: true,
+    validator(value) {
+      return (
+        typeof value.id === "string" &&
+        typeof value.imageUrl === "string" &&
+        typeof value.title === "string" &&
+        Array.isArray(value.types) &&
+        Array.isArray(value.sizes) &&
+        typeof value.price === "number" &&
+        typeof value.category === "number" &&
+        typeof value.rating === "number"
+      );
+    },
+  },
+});
+
+// Деструктуризация свойств пиццы
+const { id, imageUrl, title, types, sizes, price, category, rating } = pizza;
+
+const typeNames = ["традиционное", "тонкое"];
+const setType = ref(types[0]);
+const setSize = ref(sizes[0]);
+const count = ref(0)
+console.log(setSize);
+</script>
+
 <template>
   <div class="flex justify-center w-full">
-    <div class="h-[460px] flex flex-col justify-between items-center">
-      <img src="/pizza.png" alt="pizza" />
-      <h4 class="font-semibold text-2xl">Чизбургер-пицца</h4>
+    <div
+      class="h-[460px] w-full max-w-[300px] flex flex-col justify-between items-center"
+    >
+      <img :src="imageUrl" :alt="title" />
+      <h4 class="font-semibold text-2xl">{{ title }}</h4>
       <div class="bg-gray-200 w-full rounded-lg text-center flex flex-col gap-2 p-2">
-        <div class="grid grid-cols-2 w-full">
-          <div class="bg-white rounded p-1 cursor-pointer">тонкое</div>
-          <div>традиционное</div>
+        <div class="flex w-full">
+          <div
+            v-for="item in types"
+            @click="() => setType = item"
+            :class="{
+              'rounded p-1 cursor-pointer w-full text-center transition': true,
+              'bg-white ': setType === item,
+            }"
+          >
+            {{ typeNames[item] }}
+          </div>
         </div>
-        <div class="grid grid-cols-3 w-full text-center">
-          <div class="bg-white rounded p-1 cursor-pointer">26 см.</div>
-          <div>30 см.</div>
-          <div>40 см.</div>
+        <div class="flex text-center">
+          <div
+            v-for="size in sizes"
+            @click="() => setSize = size"
+            :class="{
+              'w-full rounded p-1 cursor-pointer': true,
+              'bg-white ': setSize === size,
+            }"
+          >
+            {{ size }} см.
+          </div>
         </div>
       </div>
-      <div class="w-full flex justify-between items-center">
-        <h3 class="text-xl font-bold">от 395 ₽</h3>
+      <div class="flex justify-between items-center w-full">
+        <h3 class="text-xl font-bold">от {{ price }} ₽</h3>
         <div
-          class="bg-white hover:bg-gray-50 cursor-pointer rounded-full border border-orange-500 flex gap-2 px-3 font-bold items-center h-12 text-orange-500"
+          @click="() => count++"
+          class="bg-white hover:bg-gray-50 cursor-pointer rounded-full border border-orange-500 flex gap-2 px-2 font-bold items-center h-12 text-orange-500"
         >
-          <span class="text-lg">+</span>
+          <span class="text-2xl">+</span>
           <span class="text-lg">Добавить</span>
-          <div class="bg-orange-500 rounded-full w-6 text-center text-white">2</div>
+          <div class="bg-orange-500 rounded-full w-6 text-center text-white">{{ count }}</div>
         </div>
       </div>
     </div>
