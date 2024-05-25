@@ -38,7 +38,21 @@ watch([setSort, setCategory], getPizzas);
     <div
       class="w-full grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-y-5"
     >
-      <PizzaCard v-for="pizza in pizzas" :key="pizza.id" :pizza="pizza" />
+      <TransitionGroup name="list">
+        <PizzaCard v-for="pizza in pizzas" :key="pizza.id" :pizza="pizza" />
+      </TransitionGroup>
     </div>
   </div>
 </template>
+
+<style scoped>
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.5s ease;
+}
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
+  transform: translateX(50px);
+}
+</style>

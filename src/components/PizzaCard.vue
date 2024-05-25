@@ -1,5 +1,10 @@
 <script setup>
-import { ref } from "vue";
+import { computed, ref } from "vue";
+import { useCartStore } from "../stores/cart.js";
+
+const cartStore = useCartStore();
+const { addToCart, items } = cartStore;
+
 const { pizza } = defineProps({
   pizza: {
     type: Object,
@@ -20,12 +25,25 @@ const { pizza } = defineProps({
 });
 
 // Деструктуризация свойств пиццы
-const { imageUrl, title, types, sizes, price } = pizza;
+const { id, imageUrl, title, types, sizes, price } = pizza;
 
 const typeNames = ["традиционное", "тонкое"];
 const setType = ref(types[0]);
 const setSize = ref(sizes[0]);
+const setPrice = computed(() => Math.ceil((price * setSize.value) / 26));
 const count = ref(0);
+
+const onClickAddPizza = () => {
+  count.value++;
+  addToCart({
+    id,
+    title,
+    imageUrl,
+    price: setPrice.value,
+    type: setType.value,
+    size: setSize.value,
+  });
+};
 </script>
 
 <template>
@@ -64,9 +82,9 @@ const count = ref(0);
         </div>
       </div>
       <div class="flex justify-between items-center w-full">
-        <h3 class="text-xl font-bold">от {{ price }} ₽</h3>
+        <h3 class="text-xl font-bold">Цена {{ setPrice }} ₽</h3>
         <button
-          @click="() => count++"
+          @click="onClickAddPizza"
           class="bg-white hover:bg-gray-50 cursor-pointer rounded-full border border-orange-500 flex gap-2 px-2 font-bold items-center h-12 text-orange-500"
         >
           <span class="text-2xl">+</span>

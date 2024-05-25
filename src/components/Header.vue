@@ -1,5 +1,10 @@
 <script setup>
+import { useCartStore } from "../stores/cart.js";
+import { ref } from "vue";
 import { RouterLink } from "vue-router";
+import { storeToRefs } from "pinia";
+const cartStore = useCartStore();
+const { totalPrice, totalQuantity } = storeToRefs(cartStore);
 </script>
 
 <template>
@@ -21,11 +26,11 @@ import { RouterLink } from "vue-router";
       <div
         class="min-w-[140px] bg-orange-500 p-4 text-white flex items-center justify-around gap-3 rounded-full font-semibold cursor-pointer"
       >
-        <span>520 ₽</span>
+        <span>{{ totalPrice }} ₽</span>
         <span>|</span>
         <div class="flex gap-1">
           <img src="/cart.svg" alt="cart" />
-          <span>3</span>
+          <span>{{ totalQuantity }}</span>
         </div>
       </div>
     </RouterLink>
