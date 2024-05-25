@@ -25,7 +25,7 @@ const { imageUrl, title, types, sizes, price } = pizza;
 const typeNames = ["традиционное", "тонкое"];
 const setType = ref(types[0]);
 const setSize = ref(sizes[0]);
-const count = ref(0)
+const count = ref(0);
 </script>
 
 <template>
@@ -39,7 +39,8 @@ const count = ref(0)
         <div class="flex w-full">
           <button
             v-for="item in types"
-            @click="() => setType = item"
+            :key="item"
+            @click="() => (setType = item)"
             :class="{
               'rounded p-1 cursor-pointer w-full text-center transition': true,
               'bg-white ': setType === item,
@@ -51,7 +52,8 @@ const count = ref(0)
         <div class="flex text-center">
           <button
             v-for="size in sizes"
-            @click="() => setSize = size"
+            :key="size"
+            @click="() => (setSize = size)"
             :class="{
               'w-full rounded p-1 cursor-pointer': true,
               'bg-white ': setSize === size,
@@ -69,7 +71,9 @@ const count = ref(0)
         >
           <span class="text-2xl">+</span>
           <span class="text-lg">Добавить</span>
-          <div class="bg-orange-500 rounded-full w-6 text-center text-white">{{ count }}</div>
+          <div class="bg-orange-500 rounded-full w-6 text-center text-white">
+            {{ count }}
+          </div>
         </button>
       </div>
     </div>

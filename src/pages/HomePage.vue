@@ -29,14 +29,16 @@ watch([setSort, setCategory], getPizzas);
 </script>
 
 <template>
-  <div class="mt-4 flex justify-between items-center">
-    <Category />
-    <Sort />
-  </div>
-  <h1 class="text-3xl font-bold my-5 ml-4">Все пиццы</h1>
-  <div
-    class="w-full grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-y-5"
-  >
-    <PizzaCard v-for="pizza in pizzas" :key="pizza.id" :pizza="pizza" />
+  <div>
+    <div class="mt-4 flex justify-between items-center">
+      <Category />
+      <Sort />
+    </div>
+    <h1 class="text-3xl font-bold my-5 ml-4">Все пиццы</h1>
+    <div
+      class="w-full grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-y-5"
+    >
+      <PizzaCard v-for="pizza in pizzas" :key="pizza.id" :pizza="pizza" />
+    </div>
   </div>
 </template>
