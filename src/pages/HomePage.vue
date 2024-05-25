@@ -2,18 +2,30 @@
 import PizzaCard from "../components/PizzaCard.vue";
 import Sort from "../components/Sort.vue";
 import Category from "../components/Category.vue";
-import { ref, onMounted } from "vue";
+import { ref, onMounted, provide, watch } from "vue";
 import axios from "axios";
 
 const pizzas = ref([]);
-onMounted(async () => {
+const setSort = ref("rating");
+const setCategory = ref(0);
+provide("setSort", setSort);
+provide("setCategory", setCategory);
+
+const getPizzas = async () => {
   try {
-    const { data } = await axios.get("https://b8163a4eee8414a4.mokky.dev/pizzas");
+    const category = setCategory.value > 0 ? `category=${setCategory.value}` : "";
+    const sort = `sortBy=${setSort.value}`;
+    const { data } = await axios.get(
+      `https://b8163a4eee8414a4.mokky.dev/pizzas?${category}&${sort}`
+    );
     pizzas.value = data;
   } catch (error) {
     console.log(error);
   }
-});
+};
+
+onMounted(() => getPizzas());
+watch([setSort, setCategory], getPizzas);
 </script>
 
 <template>
@@ -25,6 +37,6 @@ onMounted(async () => {
   <div
     class="w-full grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-y-5"
   >
-    <PizzaCard v-for="pizza in pizzas" :pizza="pizza" />
+    <PizzaCard v-for="pizza in pizzas" :key="pizza.id" :pizza="pizza" />
   </div>
 </template>

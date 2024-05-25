@@ -20,13 +20,12 @@ const { pizza } = defineProps({
 });
 
 // Деструктуризация свойств пиццы
-const { id, imageUrl, title, types, sizes, price, category, rating } = pizza;
+const { imageUrl, title, types, sizes, price } = pizza;
 
 const typeNames = ["традиционное", "тонкое"];
 const setType = ref(types[0]);
 const setSize = ref(sizes[0]);
 const count = ref(0)
-console.log(setSize);
 </script>
 
 <template>

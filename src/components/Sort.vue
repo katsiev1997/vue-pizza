@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue";
+import { ref, inject  } from "vue";
 const sort = [
   {
     label: "популярности",
@@ -15,7 +15,8 @@ const sort = [
   },
 ];
 const open = ref(true);
-const setSort = ref("rating");
+const setSort = inject('setSort')
+
 </script>
 
 <template>
@@ -32,7 +33,7 @@ const setSort = ref("rating");
     />
     <span class="font-bold text-sm">Сортировка по:</span>
     <span class="text-sm text-orange-500 underline underline-offset-4">
-      популярности
+      {{ sort.find((item) => item.value === setSort).label }}
     </span>
     <div
       :class="{
