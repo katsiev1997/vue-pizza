@@ -1,5 +1,5 @@
-<script setup>
-import { ref, inject  } from "vue";
+<script setup lang="ts">
+import { ref, inject } from "vue";
 const sort = [
   {
     label: "популярности",
@@ -15,8 +15,7 @@ const sort = [
   },
 ];
 const open = ref(true);
-const setSort = inject('setSort')
-
+const setSort = inject("setSort");
 </script>
 
 <template>
@@ -47,6 +46,7 @@ const setSort = inject('setSort')
           'text-orange-500': item.value === setSort,
         }"
         v-for="item in sort"
+        :key="item"
         @click="() => (setSort = item.value)"
       >
         {{ item.label }}

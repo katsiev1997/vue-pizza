@@ -1,30 +1,23 @@
-<script setup>
+<script setup lang="ts">
 import { computed, ref } from "vue";
-import { useCartStore } from "../stores/cart.js";
+import { useCartStore } from "../stores/cart";
 
 const cartStore = useCartStore();
 const { addToCart, items } = cartStore;
 
-const { pizza } = defineProps({
-  pizza: {
-    type: Object,
-    required: true,
-    validator(value) {
-      return (
-        typeof value.id === "string" &&
-        typeof value.imageUrl === "string" &&
-        typeof value.title === "string" &&
-        Array.isArray(value.types) &&
-        Array.isArray(value.sizes) &&
-        typeof value.price === "number" &&
-        typeof value.category === "number" &&
-        typeof value.rating === "number"
-      );
-    },
-  },
-});
+type Pizza = {
+  id: string;
+  imageUrl: string;
+  title: string;
+  types: string[];
+  sizes: number[];
+  price: number;
+  category: number;
+  rating: number;
+};
 
-// Деструктуризация свойств пиццы
+const { pizza } = defineProps<{ pizza: Pizza }>();
+
 const { id, imageUrl, title, types, sizes, price } = pizza;
 
 const typeNames = ["традиционное", "тонкое"];

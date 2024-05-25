@@ -1,5 +1,5 @@
-<script setup>
-import { inject } from "vue";
+<script setup lang="ts">
+import { inject, Ref } from "vue";
 
 const categories = [
   "Все",
@@ -10,7 +10,7 @@ const categories = [
   "Закрытые",
 ];
 
-const setCategory = inject('setCategory')
+const setCategory = inject<Ref<number>>('setCategory')
 
 const onClickCategory = (category) => {
   setCategory.value = category;

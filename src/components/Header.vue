@@ -1,5 +1,5 @@
-<script setup>
-import { useCartStore } from "../stores/cart.js";
+<script setup lang="ts">
+import { useCartStore } from "../stores/cart";
 import { ref } from "vue";
 import { RouterLink } from "vue-router";
 import { storeToRefs } from "pinia";

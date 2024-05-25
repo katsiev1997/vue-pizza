@@ -1,7 +1,8 @@
-<script setup>
+<script setup lang="ts">
 import PizzaCard from "../components/PizzaCard.vue";
 import Sort from "../components/Sort.vue";
 import Category from "../components/Category.vue";
+
 import { ref, onMounted, provide, watch } from "vue";
 import axios from "axios";
 
