@@ -6,7 +6,7 @@ const cartStore = useCartStore();
 const { addToCart, items } = cartStore;
 
 type Pizza = {
-  id: string;
+  id: number;
   imageUrl: string;
   title: string;
   types: string[];
@@ -24,10 +24,8 @@ const typeNames = ["традиционное", "тонкое"];
 const setType = ref(types[0]);
 const setSize = ref(sizes[0]);
 const setPrice = computed(() => Math.ceil((price * setSize.value) / 26));
-const count = ref(0);
 
 const onClickAddPizza = () => {
-  count.value++;
   addToCart({
     id,
     title,
@@ -80,11 +78,9 @@ const onClickAddPizza = () => {
           @click="onClickAddPizza"
           class="bg-white hover:bg-gray-50 cursor-pointer rounded-full border border-orange-500 flex gap-2 px-2 font-bold items-center h-12 text-orange-500"
         >
-          <span class="text-2xl">+</span>
+          <span class="text-xl">+</span>
           <span class="text-lg">Добавить</span>
-          <div class="bg-orange-500 rounded-full w-6 text-center text-white">
-            {{ count }}
-          </div>
+
         </button>
       </div>
     </div>

@@ -2,11 +2,24 @@
 import { defineStore } from "pinia";
 import { ref, computed } from "vue";
 
-export const useCartStore = defineStore("cart", () => {
-  const items = ref([]);
+type Pizza = {
+  id: number;
+  title: string;
+  imageUrl: string;
+  price: number;
+  type: string;
+  size: number;
+};
 
-  const addToCart = (pizza) => {
-    const existingItem = items.value.find((item) => item === pizza);
+interface CartItem extends Pizza {
+  quantity: number;
+}
+
+export const useCartStore = defineStore("cart", () => {
+  const items = ref<CartItem[]>([]);
+
+  const addToCart = (pizza: Pizza) => {
+    const existingItem: CartItem = items.value.find((item) => item === pizza);
     if (existingItem) {
       existingItem.quantity += 1;
     } else {
@@ -14,8 +27,19 @@ export const useCartStore = defineStore("cart", () => {
     }
   };
 
-  const removeFromCart = (pizzaId) => {
-    items.value = items.value.filter((item) => item.id !== pizzaId);
+  const decreaseItem = (pizza: Pizza) => {
+    const item = items.value.find(
+      (item) =>
+        item.id !== pizza.id && item.type !== pizza.type && item.size !== pizza.size
+    );
+    item.quantity -= 1;
+  };
+
+  const removeFromCart = (pizza: Pizza) => {
+    items.value = items.value.filter(
+      (item) =>
+        item.id !== pizza.id && item.type !== pizza.type && item.size !== pizza.size
+    );
   };
 
   const clearCart = () => {
@@ -32,6 +56,7 @@ export const useCartStore = defineStore("cart", () => {
 
   return {
     items,
+    decreaseItem,
     addToCart,
     removeFromCart,
     clearCart,
