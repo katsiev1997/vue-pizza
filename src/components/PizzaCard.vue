@@ -3,7 +3,7 @@ import { computed, ref } from "vue";
 import { useCartStore } from "../stores/cart";
 
 const cartStore = useCartStore();
-const { addToCart, items } = cartStore;
+const { addToCart } = cartStore;
 
 type Pizza = {
   id: number;
