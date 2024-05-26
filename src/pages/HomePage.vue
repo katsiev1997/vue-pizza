@@ -5,8 +5,9 @@ import Category from "../components/Category.vue";
 
 import { ref, onMounted, provide, watch } from "vue";
 import axios from "axios";
+import { Pizza } from "../stores/cart";
 
-const pizzas = ref([]);
+const pizzas = ref<Pizza[]>([]);
 const setSort = ref("rating");
 const setCategory = ref(0);
 provide("setSort", setSort);
