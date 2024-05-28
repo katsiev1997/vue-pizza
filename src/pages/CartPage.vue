@@ -28,7 +28,7 @@ const clearCart = () => {
         <p class="text-lg text-gray-400 hover:text-black">Очистить корзину</p>
       </button>
     </div>
-    <CartItem v-for="item in items" :key="item.id" :item="item" />
+    <CartItem v-for="item in items" :key="item.id + item.type + item.size" :item="item" />
     <div class="flex justify-between w-full items-center mt-10">
       <p class="text-2xl">
         Всего пицц: <span class="font-bold">{{ totalQuantity }} шт.</span>

@@ -5,7 +5,7 @@ import { useCartStore } from "../stores/cart";
 const cartStore = useCartStore();
 const { addToCart } = cartStore;
 
-type Pizza = {
+export type PizzaCardType = {
   id: number;
   imageUrl: string;
   title: string;
@@ -16,7 +16,7 @@ type Pizza = {
   rating: number;
 };
 
-const { pizza } = defineProps<{ pizza: Pizza }>();
+const { pizza } = defineProps<{ pizza: PizzaCardType }>();
 
 const { id, imageUrl, title, types, sizes, price } = pizza;
 
@@ -76,11 +76,10 @@ const onClickAddPizza = () => {
         <h3 class="text-xl font-bold">Цена {{ setPrice }} ₽</h3>
         <button
           @click="onClickAddPizza"
-          class="bg-white hover:bg-gray-50 cursor-pointer rounded-full border border-orange-500 flex gap-2 px-2 font-bold items-center h-12 text-orange-500"
+          class="bg-white active:bg-gray-200 hover:bg-gray-50 cursor-pointer rounded-full border border-orange-500 flex gap-2 px-2 font-bold items-center h-12 text-orange-500"
         >
           <span class="text-xl">+</span>
           <span class="text-lg">Добавить</span>
-
         </button>
       </div>
     </div>

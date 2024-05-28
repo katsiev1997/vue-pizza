@@ -13,7 +13,10 @@ const pizza: Pizza = {
   price: item.price,
 };
 const cartStore = useCartStore();
-const { addToCart, decreaseItem, removeFromCart } = cartStore;
+const addToCart = cartStore.addToCart
+const decreaseItem = cartStore.decreaseItem
+const removeFromCart = cartStore.removeFromCart
+
 </script>
 
 <template>

@@ -18,23 +18,29 @@ export const useCartStore = defineStore("cart", () => {
   const items = ref<CartItem[]>([]);
 
   const addToCart = (pizza: Pizza) => {
-    const existingItem: CartItem = items.value.find(
+    console.log(pizza);
+    const existingItem = items.value.find(
       (item) =>
         item.id === pizza.id && item.type === pizza.type && item.size === pizza.size
     );
     if (existingItem) {
       existingItem.quantity += 1;
+      items.value = [...items.value]; // force update
     } else {
-      items.value.push({ ...pizza, quantity: 1 });
+      items.value = [...items.value, { ...pizza, quantity: 1 }];
     }
   };
 
   const decreaseItem = (pizza: Pizza) => {
-    const item = items.value.find(
+    const itemIndex = items.value.findIndex(
       (item) =>
         item.id === pizza.id && item.type === pizza.type && item.size === pizza.size
     );
-    item.quantity -= 1;
+    if (itemIndex !== -1) {
+      const item = items.value[itemIndex];
+      item.quantity -= 1;
+      items.value = [...items.value]; // force update
+    }
   };
 
   const removeFromCart = (pizza: Pizza) => {
@@ -42,7 +48,11 @@ export const useCartStore = defineStore("cart", () => {
       (item) =>
         item.id === pizza.id && item.type === pizza.type && item.size === pizza.size
     );
-    items.value.splice(index, 1);
+    if (index !== -1) {
+      const newItems = [...items.value];
+      newItems.splice(index, 1);
+      items.value = newItems; // force update
+    }
   };
 
   const clearCart = () => {

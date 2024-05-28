@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import PizzaCard from "../components/PizzaCard.vue";
+import PizzaCard, { PizzaCardType } from "../components/PizzaCard.vue";
 import Sort from "../components/Sort.vue";
 import Category from "../components/Category.vue";
 
@@ -7,7 +7,7 @@ import { ref, onMounted, provide, watch } from "vue";
 import axios from "axios";
 import { Pizza } from "../stores/cart";
 
-const pizzas = ref<Pizza[]>([]);
+const pizzas = ref<PizzaCardType[]>([]);
 const setSort = ref("rating");
 const setCategory = ref(0);
 provide("setSort", setSort);
@@ -17,7 +17,7 @@ const getPizzas = async () => {
   try {
     const category = setCategory.value > 0 ? `category=${setCategory.value}` : "";
     const sort = `sortBy=${setSort.value}`;
-    const { data } = await axios.get(
+    const { data } = await axios.get<PizzaCardType[]>(
       `https://b8163a4eee8414a4.mokky.dev/pizzas?${category}&${sort}`
     );
     pizzas.value = data;
