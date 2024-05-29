@@ -15,7 +15,7 @@ const fetchPizzas = async () => {
   const category = setCategory.value > 0 ? `category=${setCategory.value}` : "";
   const sort = `sortBy=${setSort.value}`;
   const { data } = await axios.get<PizzaCardType[]>(
-    `https://b8163a4eee8414a4.mokky.1dev/pizzas?${category}&${sort}`
+    `https://b8163a4eee8414a4.mokky.dev/pizzas?${category}&${sort}`
   );
   return data;
 };
